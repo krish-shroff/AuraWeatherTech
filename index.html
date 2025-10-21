@@ -3,18 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <!-- SEO Meta Tags -->
   <meta name="description" content="Check the current weather of any city with our simple and responsive weather app.">
   <meta name="keywords" content="Weather, Forecast, Temperature, Wind, Weather API">
   <meta name="author" content="Krish Shroff">
   <meta name="google-site-verification" content="WbXXHLfwfhC2-s-wDaj4qqf7BNIzQgv4IcicMVflB0Y" />
-  <title>SkyCast Weather App</title>
+
+  <title>Simple Weather App</title>
+
+  <!-- Structured Data for Crawlers (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Simple Weather App",
+    "url": "https://yourwebsite.com/",
+    "description": "Check the current weather of any city with our simple and responsive weather app.",
+    "publisher": {
+      "@type": "Person",
+      "name": "Krish Shroff"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://yourwebsite.com/?city={city}",
+      "query-input": "required name=city"
+    }
+  }
+  </script>
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="night-theme">
 
   <header>
-    <img src="skycast.png" alt="SkyCast Logo" class="logo">
-    <h1>SkyCast Weather</h1>
+    <h1>Weather App</h1>
+    <p>Enter your city or use your location to get the latest weather</p>
   </header>
 
   <div class="search-box">
@@ -26,14 +50,13 @@
   </div>
 
   <div class="content" id="weather-box">
-    <!-- Weather data will be dynamically inserted here -->
+    <!-- Weather results will be dynamically inserted here -->
   </div>
 
   <footer>
-    <p>© 2025 SkyCast Weather by Krish Shroff</p>
+    <p>© 2025 Weather App by Krish Shroff</p>
   </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
-
