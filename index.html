@@ -27,8 +27,8 @@
   <main>
     <input type="text" id="city" placeholder="Enter city name..." />
     <div class="btns">
-      <button onclick="getWeather()">Search Weather</button>
-      <button id="locBtn" onclick="getLocationWeather()">📍 Use My Location</button>
+      <button id="searchBtn">Search Weather</button>
+      <button id="locBtn">📍 Use My Location</button>
     </div>
 
     <div class="content" id="weather-box">
@@ -39,6 +39,7 @@
       <h3 id="Condition"></h3>
       <h3 id="windspeed"></h3>
       <h3 id="summary"></h3>
+      <img id="icon" alt="Weather Icon">
     </div>
   </main>
 
@@ -49,5 +50,6 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
