@@ -1,47 +1,75 @@
+// Fetch weather data and update UI
 async function getWeather(cityName) {
   let city = cityName || document.querySelector('#city').value.trim();
-  if (city === "") {
+
+  // Handle empty input
+  if (!city) {
     alert("Please enter a city name!");
     return;
   }
 
   try {
-    let response = await fetch(`https://api.weatherapi.com/v1/current.json?key=1f0607942f8b49ec859103730251406&q=${city}`);
-    let data = await response.json();
+    const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=1f0607942f8b49ec859103730251406&q=${city}`);
 
-    if (data.error) {
-      document.querySelector('#weather-box').innerHTML = `<h3 style="color:red;">${data.error.message}</h3>`;
-      return;
+    // Handle fetch errors
+    if (!response.ok) {
+      throw new Error(`Network response was not ok (${response.status})`);
     }
 
-    document.querySelector('#City').innerHTML = "🌆 City: " + data.location.name;
-    document.querySelector('#state').innerHTML = "🏙️ State: " + data.location.region;
-    document.querySelector('#Country').innerHTML = "🌍 Country: " + data.location.country;
-    document.querySelector('#Celsius').innerHTML = "🌡️ Temperature: " + data.current.temp_c + "°C";
-    document.querySelector('#Condition').innerHTML = "☁️ Condition: " + data.current.condition.text;
-    document.querySelector('#windspeed').innerHTML = "💨 Wind Speed: " + data.current.wind_kph + " kph";
-    document.querySelector('#summary').innerHTML =
-      `In ${data.location.name}, ${data.location.country}, it’s currently ${data.current.condition.text} with a temperature of ${data.current.temp_c}°C and wind speed of ${data.current.wind_kph} kph.`;
+    const data = await response.json();
 
+    // Handle API errors
+    if (data.error) {
+      throw new Error(data.error.message);
+    }
+
+    // Update UI elements
+    document.querySelector('#City').textContent = `🌆 City: ${data.location.name}`;
+    document.querySelector('#state').textContent = `🏙️ State: ${data.location.region}`;
+    document.querySelector('#Country').textContent = `🌍 Country: ${data.location.country}`;
+    document.querySelector('#Celsius').textContent = `🌡️ Temperature: ${data.current.temp_c}°C`;
+    document.querySelector('#Condition').textContent = `☁️ Condition: ${data.current.condition.text}`;
+    document.querySelector('#windspeed').textContent = `💨 Wind Speed: ${data.current.wind_kph} kph`;
+
+    // Display weather icon
     const icon = document.querySelector('#icon');
-    icon.src = "https:" + data.current.condition.icon;
+    icon.src = `https:${data.current.condition.icon}`;
     icon.style.display = "block";
 
+    // Improved summary message
+    document.querySelector('#summary').textContent =
+      `Currently in ${data.location.name}, ${data.location.region}, ${data.location.country}, the weather is ${data.current.condition.text} with a temperature of ${data.current.temp_c}°C and wind speed of ${data.current.wind_kph} kph.`;
+
+    // Apply day/night theme
     applyTheme(data.current.is_day);
 
   } catch (error) {
-    document.querySelector('#weather-box').innerHTML = `<h3 style="color:red;">Failed to fetch data. Please try again.</h3>`;
+    document.querySelector('#weather-box').innerHTML = `<h3 style="color:red;">Error: ${error.message}</h3>`;
   }
 }
 
+// Auto-detect user location
 function getLocationWeather() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(async (position) => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-      let response = await fetch(`https://api.weatherapi.com/v1/current.json?key=1f0607942f8b49ec859103730251406&q=${lat},${lon}`);
-      let data = await response.json();
-      getWeather(data.location.name);
+
+      try {
+        const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=1f0607942f8b49ec859103730251406&q=${lat},${lon}`);
+        const data = await response.json();
+
+        if (data.error) {
+          throw new Error(data.error.message);
+        }
+
+        // Use the refactored getWeather function with city name
+        getWeather(data.location.name);
+
+      } catch (error) {
+        document.querySelector('#weather-box').innerHTML = `<h3 style="color:red;">Error: ${error.message}</h3>`;
+      }
+
     }, () => {
       alert("Location access denied. Please enter city manually.");
     });
@@ -50,6 +78,7 @@ function getLocationWeather() {
   }
 }
 
+// Switch theme based on day/night
 function applyTheme(isDay) {
   if (isDay === 1) {
     document.body.classList.remove("night-theme");
@@ -60,8 +89,7 @@ function applyTheme(isDay) {
   }
 }
 
+// Press Enter key to trigger search
 document.querySelector('#city').addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') {
-    getWeather();
-  }
+  if (e.key === 'Enter') getWeather();
 });
