@@ -21,51 +21,6 @@ body {
   transition: background 1s ease, color 1s ease;
 }
 
-/* Animated Background */
-.background {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: -1;
-}
-
-.clouds, .stars {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-repeat: repeat-x;
-  opacity: 0;
-  transition: opacity 2s ease;
-}
-
-.clouds {
-  background-image: url('https://i.ibb.co/0qM6hmy/clouds.png');
-  background-size: cover;
-  animation: moveClouds 60s linear infinite;
-}
-
-.stars {
-  background-image: radial-gradient(2px 2px at 20px 30px, #fff, transparent),
-                    radial-gradient(1px 1px at 50px 80px, #fff, transparent),
-                    radial-gradient(2px 2px at 90px 120px, #fff, transparent),
-                    radial-gradient(1px 1px at 150px 200px, #fff, transparent);
-  background-size: 200px 200px;
-  animation: twinkle 4s infinite ease-in-out alternate;
-}
-
-@keyframes moveClouds {
-  from { background-position: 0 0; }
-  to { background-position: 1000px 0; }
-}
-
-@keyframes twinkle {
-  from { opacity: 0.5; }
-  to { opacity: 1; }
-}
-
-/* Header */
 header {
   text-align: center;
   color: var(--accent-color);
@@ -84,7 +39,6 @@ header p {
   color: #aafaff;
 }
 
-/* Inputs and Buttons */
 input {
   width: 90%;
   max-width: 350px;
@@ -128,7 +82,6 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* Weather Content */
 .content {
   text-align: center;
   margin-top: 2vh;
@@ -141,7 +94,6 @@ button:hover {
   text-shadow: 0 0 5px var(--accent-color);
 }
 
-/* Weather Icon */
 #icon {
   margin-top: 2vh;
   width: 20vw;
@@ -150,7 +102,6 @@ button:hover {
   display: none;
 }
 
-/* Footer */
 footer {
   text-align: center;
   font-size: clamp(0.8em, 2vw, 0.9em);
@@ -186,7 +137,6 @@ footer a:hover {
 .night-theme .clouds { opacity: 0; }
 .night-theme .stars { opacity: 0.5; }
 
-/* Media Queries for Mobile */
 @media (max-width: 480px) {
   body {
     padding: 2vh 3vw;
