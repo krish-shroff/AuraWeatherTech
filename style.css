@@ -6,32 +6,33 @@
   --accent-color: #00f0ff;
 }
 
-body {
+/* Base Styles */
+html, body {
   margin: 0;
-  padding: 3vh 2vw;
-  background: var(--bg-color);
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
   font-family: 'Poppins', sans-serif;
   color: var(--text-color);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow-x: hidden;
-  position: relative;
-  transition: background 1s ease, color 1s ease;
+  background: var(--bg-color);
+}
+
+body {
+  padding: 2vh 3vw;
+  min-height: 100%;
 }
 
 header {
   text-align: center;
   color: var(--accent-color);
   text-shadow: 0 0 8px var(--accent-color);
-  margin-bottom: 3vh;
+  margin-bottom: 2vh;
 }
 
 header h1 {
   font-family: 'Orbitron', sans-serif;
-  margin: 0;
   font-size: clamp(2em, 5vw, 2.5em);
+  margin: 0;
 }
 
 header p {
@@ -39,8 +40,9 @@ header p {
   color: #aafaff;
 }
 
+/* Inputs and Buttons */
 input {
-  width: 90%;
+  width: 95%;
   max-width: 350px;
   padding: 1vh 1vw;
   font-size: clamp(1em, 2vw, 1.2em);
@@ -60,11 +62,11 @@ input {
   justify-content: center;
   gap: 2vw;
   flex-wrap: wrap;
-  margin-bottom: 3vh;
+  margin-bottom: 2vh;
 }
 
 button {
-  width: 40%;
+  width: 45%;
   min-width: 120px;
   padding: 1vh 0;
   font-size: clamp(0.9em, 1.5vw, 1.1em);
@@ -82,10 +84,13 @@ button:hover {
   transform: scale(1.05);
 }
 
+/* Weather Content */
 .content {
   text-align: center;
   margin-top: 2vh;
   padding: 2vw;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .content h3 {
@@ -94,28 +99,21 @@ button:hover {
   text-shadow: 0 0 5px var(--accent-color);
 }
 
+/* Weather Icon */
 #icon {
-  margin-top: 2vh;
-  width: 20vw;
+  width: 25vw;
   max-width: 100px;
   height: auto;
-  display: none;
+  margin: 1vh auto;
+  display: block;
 }
 
+/* Footer */
 footer {
   text-align: center;
   font-size: clamp(0.8em, 2vw, 0.9em);
   color: #aafaff;
   margin-top: 3vh;
-}
-
-footer a {
-  color: var(--accent-color);
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
 }
 
 /* Day/Night Themes */
@@ -125,23 +123,14 @@ footer a:hover {
   --accent-color: #00bcd4;
 }
 
-.day-theme .clouds { opacity: 0.4; }
-.day-theme .stars { opacity: 0; }
-
 .night-theme {
   --bg-color: radial-gradient(circle at top, #00141a, #000);
   --text-color: #00f0ff;
   --accent-color: #00f0ff;
 }
 
-.night-theme .clouds { opacity: 0; }
-.night-theme .stars { opacity: 0.5; }
-
+/* Media Queries for small screens */
 @media (max-width: 480px) {
-  body {
-    padding: 2vh 3vw;
-  }
-
   input, button {
     width: 95%;
     font-size: 1em;
@@ -151,16 +140,17 @@ footer a:hover {
     gap: 1vw;
   }
 
-  h3 {
-    font-size: 1em;
+  .content h3 {
+    font-size: 0.95em;
+    margin: 1vh 0;
+  }
+
+  #icon {
+    width: 30vw;
+    max-width: 80px;
   }
 
   header h1 {
     font-size: 2em;
-  }
-
-  #icon {
-    width: 25vw;
-    max-width: 80px;
   }
 }
