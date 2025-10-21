@@ -17,11 +17,10 @@ header {
 }
 
 header .logo {
-  width: 120px;
-  max-width: 150px;
+  width: 120px;  /* Logo width */
   height: auto;
   display: block;
-  margin: 0 auto 10px auto;
+  margin: 0 auto 10px;
 }
 
 header h1 {
