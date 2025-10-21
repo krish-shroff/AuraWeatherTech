@@ -8,7 +8,7 @@
 
 body {
   margin: 0;
-  padding: 20px;
+  padding: 3vh 2vw;
   background: var(--bg-color);
   font-family: 'Poppins', sans-serif;
   color: var(--text-color);
@@ -16,12 +16,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: hidden;
+  overflow-x: hidden;
   position: relative;
   transition: background 1s ease, color 1s ease;
 }
 
-/* Animated Background Layers */
+/* Animated Background */
 .background {
   position: fixed;
   top: 0; left: 0;
@@ -65,49 +65,55 @@ body {
   to { opacity: 1; }
 }
 
+/* Header */
 header {
   text-align: center;
   color: var(--accent-color);
   text-shadow: 0 0 8px var(--accent-color);
+  margin-bottom: 3vh;
 }
 
 header h1 {
   font-family: 'Orbitron', sans-serif;
   margin: 0;
-  font-size: 2.5em;
+  font-size: clamp(2em, 5vw, 2.5em);
 }
 
 header p {
-  font-size: 1.1em;
+  font-size: clamp(1em, 2.5vw, 1.2em);
   color: #aafaff;
 }
 
+/* Inputs and Buttons */
 input {
-  width: 80%;
+  width: 90%;
   max-width: 350px;
-  padding: 12px;
-  font-size: 1.1em;
+  padding: 1vh 1vw;
+  font-size: clamp(1em, 2vw, 1.2em);
   border: none;
   border-radius: 8px;
   color: var(--accent-color);
   background-color: #111;
   box-shadow: 0 0 10px var(--accent-color);
-  margin: 10px auto;
+  margin: 2vh auto;
   display: block;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .btns {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 2vw;
   flex-wrap: wrap;
+  margin-bottom: 3vh;
 }
 
 button {
-  width: 160px;
-  padding: 12px;
-  font-size: 1em;
+  width: 40%;
+  min-width: 120px;
+  padding: 1vh 0;
+  font-size: clamp(0.9em, 1.5vw, 1.1em);
   border: none;
   border-radius: 8px;
   background-color: var(--accent-color);
@@ -122,29 +128,34 @@ button:hover {
   transform: scale(1.05);
 }
 
+/* Weather Content */
 .content {
   text-align: center;
-  margin-top: 20px;
-  padding: 15px;
+  margin-top: 2vh;
+  padding: 2vw;
 }
 
 .content h3 {
-  margin: 8px 0;
-  font-size: 1.2em;
+  margin: 1vh 0;
+  font-size: clamp(1em, 2vw, 1.3em);
   text-shadow: 0 0 5px var(--accent-color);
 }
 
+/* Weather Icon */
 #icon {
-  margin-top: 15px;
-  width: 80px;
-  height: 80px;
+  margin-top: 2vh;
+  width: 20vw;
+  max-width: 100px;
+  height: auto;
   display: none;
 }
 
+/* Footer */
 footer {
   text-align: center;
-  font-size: 0.9em;
+  font-size: clamp(0.8em, 2vw, 0.9em);
   color: #aafaff;
+  margin-top: 3vh;
 }
 
 footer a {
@@ -156,7 +167,7 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Day theme */
+/* Day/Night Themes */
 .day-theme {
   --bg-color: radial-gradient(circle at top, #b3e5fc, #0277bd);
   --text-color: #001f3f;
@@ -166,7 +177,6 @@ footer a:hover {
 .day-theme .clouds { opacity: 0.4; }
 .day-theme .stars { opacity: 0; }
 
-/* Night theme */
 .night-theme {
   --bg-color: radial-gradient(circle at top, #00141a, #000);
   --text-color: #00f0ff;
@@ -175,3 +185,32 @@ footer a:hover {
 
 .night-theme .clouds { opacity: 0; }
 .night-theme .stars { opacity: 0.5; }
+
+/* Media Queries for Mobile */
+@media (max-width: 480px) {
+  body {
+    padding: 2vh 3vw;
+  }
+
+  input, button {
+    width: 95%;
+    font-size: 1em;
+  }
+
+  .btns {
+    gap: 1vw;
+  }
+
+  h3 {
+    font-size: 1em;
+  }
+
+  header h1 {
+    font-size: 2em;
+  }
+
+  #icon {
+    width: 25vw;
+    max-width: 80px;
+  }
+}
