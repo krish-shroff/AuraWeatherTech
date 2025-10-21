@@ -2,54 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Check live weather updates with auto location, day/night themes, and animated backgrounds. Powered by WeatherAPI.">
-  <meta name="keywords" content="weather, live weather, forecast, temperature, location weather, skycast, real-time weather">
-  <meta name="google-site-verification" content="WbXXHLfwfhC2-s-wDaj4qqf7BNIzQgv4IcicMVflB0Y" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Check the current weather of any city with our simple and responsive weather app.">
+  <meta name="keywords" content="Weather, Forecast, Temperature, Wind, Weather API">
   <meta name="author" content="Krish Shroff">
-
-  <title>SkyCast - Smart Live Weather</title>
+  <meta name="google-site-verification" content="WbXXHLfwfhC2-s-wDaj4qqf7BNIzQgv4IcicMVflB0Y" />
+  <title>Simple Weather App</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1116/1116453.png" type="image/png">
 </head>
-<body>
-  <!-- Animated Background -->
-  <div class="background">
-    <div class="clouds"></div>
-    <div class="stars"></div>
-  </div>
+<body class="night-theme">
 
   <header>
-    <h1>🌦️ SkyCast</h1>
-    <p>Your Smart Weather Companion</p>
+    <h1>Weather App</h1>
+    <p>Enter your city or use your location to get the latest weather</p>
   </header>
 
-  <main>
-    <input type="text" id="city" placeholder="Enter city name..." />
+  <div class="search-box">
+    <input type="text" id="city" placeholder="Enter city name" />
     <div class="btns">
       <button id="searchBtn">Search Weather</button>
-      <button id="locBtn">📍 Use My Location</button>
+      <button id="locBtn">Use My Location</button>
     </div>
+  </div>
 
-    <div class="content" id="weather-box">
-      <h3 id="City"></h3>
-      <h3 id="state"></h3>
-      <h3 id="Country"></h3>
-      <h3 id="Celsius"></h3>
-      <h3 id="Condition"></h3>
-      <h3 id="windspeed"></h3>
-      <h3 id="summary"></h3>
-      <img id="icon" alt="Weather Icon">
-    </div>
-  </main>
+  <div class="content" id="weather-box">
+    <!-- Weather results will be dynamically inserted here -->
+  </div>
 
   <footer>
-    <p>Made with ❤️ by You | Powered by <a href="https://www.weatherapi.com/" target="_blank">WeatherAPI</a></p>
+    <p>© 2025 Weather App by Krish Shroff</p>
   </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
