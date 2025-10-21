@@ -1,95 +1,90 @@
-// Fetch weather data and update UI
-async function getWeather(cityName) {
-  let city = cityName || document.querySelector('#city').value.trim();
+document.addEventListener("DOMContentLoaded", () => {
 
-  // Handle empty input
-  if (!city) {
-    alert("Please enter a city name!");
-    return;
-  }
-
-  try {
-    const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=1f0607942f8b49ec859103730251406&q=${city}`);
-
-    // Handle fetch errors
-    if (!response.ok) {
-      throw new Error(`Network response was not ok (${response.status})`);
+  // Refactored getWeather function
+  async function getWeather(cityName) {
+    let city = cityName || document.querySelector('#city')?.value.trim();
+    if (!city) {
+      alert("Please enter a city name!");
+      return;
     }
 
-    const data = await response.json();
+    try {
+      const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=1f0607942f8b49ec859103730251406&q=${city}`);
 
-    // Handle API errors
-    if (data.error) {
-      throw new Error(data.error.message);
-    }
+      if (!response.ok) throw new Error(`Network response was not ok (${response.status})`);
 
-    // Update UI elements
-    document.querySelector('#City').textContent = `🌆 City: ${data.location.name}`;
-    document.querySelector('#state').textContent = `🏙️ State: ${data.location.region}`;
-    document.querySelector('#Country').textContent = `🌍 Country: ${data.location.country}`;
-    document.querySelector('#Celsius').textContent = `🌡️ Temperature: ${data.current.temp_c}°C`;
-    document.querySelector('#Condition').textContent = `☁️ Condition: ${data.current.condition.text}`;
-    document.querySelector('#windspeed').textContent = `💨 Wind Speed: ${data.current.wind_kph} kph`;
+      const data = await response.json();
+      if (data.error) throw new Error(data.error.message);
 
-    // Display weather icon
-    const icon = document.querySelector('#icon');
-    icon.src = `https:${data.current.condition.icon}`;
-    icon.style.display = "block";
+      // Update UI elements safely
+      const cityEl = document.querySelector('#City');
+      const stateEl = document.querySelector('#state');
+      const countryEl = document.querySelector('#Country');
+      const tempEl = document.querySelector('#Celsius');
+      const condEl = document.querySelector('#Condition');
+      const windEl = document.querySelector('#windspeed');
+      const summaryEl = document.querySelector('#summary');
+      const iconEl = document.querySelector('#icon');
 
-    // Improved summary message
-    document.querySelector('#summary').textContent =
-      `Currently in ${data.location.name}, ${data.location.region}, ${data.location.country}, the weather is ${data.current.condition.text} with a temperature of ${data.current.temp_c}°C and wind speed of ${data.current.wind_kph} kph.`;
+      if (cityEl) cityEl.textContent = `🌆 City: ${data.location.name}`;
+      if (stateEl) stateEl.textContent = `🏙️ State: ${data.location.region}`;
+      if (countryEl) countryEl.textContent = `🌍 Country: ${data.location.country}`;
+      if (tempEl) tempEl.textContent = `🌡️ Temperature: ${data.current.temp_c}°C`;
+      if (condEl) condEl.textContent = `☁️ Condition: ${data.current.condition.text}`;
+      if (windEl) windEl.textContent = `💨 Wind Speed: ${data.current.wind_kph} kph`;
+      if (summaryEl) summaryEl.textContent =
+        `Currently in ${data.location.name}, ${data.location.region}, ${data.location.country}, the weather is ${data.current.condition.text} with a temperature of ${data.current.temp_c}°C and wind speed of ${data.current.wind_kph} kph.`;
 
-    // Apply day/night theme
-    applyTheme(data.current.is_day);
-
-  } catch (error) {
-    document.querySelector('#weather-box').innerHTML = `<h3 style="color:red;">Error: ${error.message}</h3>`;
-  }
-}
-
-// Auto-detect user location
-function getLocationWeather() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-
-      try {
-        const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=1f0607942f8b49ec859103730251406&q=${lat},${lon}`);
-        const data = await response.json();
-
-        if (data.error) {
-          throw new Error(data.error.message);
-        }
-
-        // Use the refactored getWeather function with city name
-        getWeather(data.location.name);
-
-      } catch (error) {
-        document.querySelector('#weather-box').innerHTML = `<h3 style="color:red;">Error: ${error.message}</h3>`;
+      if (iconEl) {
+        iconEl.src = `https:${data.current.condition.icon}`;
+        iconEl.style.display = "block";
       }
 
-    }, () => {
-      alert("Location access denied. Please enter city manually.");
-    });
-  } else {
-    alert("Geolocation is not supported by your browser.");
-  }
-}
+      applyTheme(data.current.is_day);
 
-// Switch theme based on day/night
-function applyTheme(isDay) {
-  if (isDay === 1) {
-    document.body.classList.remove("night-theme");
-    document.body.classList.add("day-theme");
-  } else {
-    document.body.classList.remove("day-theme");
-    document.body.classList.add("night-theme");
+    } catch (error) {
+      const weatherBox = document.querySelector('#weather-box');
+      if (weatherBox) weatherBox.innerHTML = `<h3 style="color:red;">Error: ${error.message}</h3>`;
+    }
   }
-}
 
-// Press Enter key to trigger search
-document.querySelector('#city').addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') getWeather();
+  // Auto-location function
+  function getLocationWeather() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        try {
+          const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=1f0607942f8b49ec859103730251406&q=${lat},${lon}`);
+          const data = await response.json();
+          if (data.error) throw new Error(data.error.message);
+          getWeather(data.location.name);
+        } catch (error) {
+          const weatherBox = document.querySelector('#weather-box');
+          if (weatherBox) weatherBox.innerHTML = `<h3 style="color:red;">Error: ${error.message}</h3>`;
+        }
+      }, () => alert("Location access denied. Please enter city manually."));
+    } else {
+      alert("Geolocation is not supported by your browser.");
+    }
+  }
+
+  // Theme switcher
+  function applyTheme(isDay) {
+    if (isDay === 1) {
+      document.body.classList.remove("night-theme");
+      document.body.classList.add("day-theme");
+    } else {
+      document.body.classList.remove("day-theme");
+      document.body.classList.add("night-theme");
+    }
+  }
+
+  // Event listeners
+  document.querySelector('#searchBtn')?.addEventListener('click', () => getWeather());
+  document.querySelector('#locBtn')?.addEventListener('click', getLocationWeather());
+  document.querySelector('#city')?.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') getWeather();
+  });
+
 });
