@@ -40,14 +40,12 @@ body {
   transition: opacity 2s ease;
 }
 
-/* ☁️ Moving Clouds (Day Mode) */
 .clouds {
   background-image: url('https://i.ibb.co/0qM6hmy/clouds.png');
   background-size: cover;
   animation: moveClouds 60s linear infinite;
 }
 
-/* ✨ Twinkling Stars (Night Mode) */
 .stars {
   background-image: radial-gradient(2px 2px at 20px 30px, #fff, transparent),
                     radial-gradient(1px 1px at 50px 80px, #fff, transparent),
@@ -158,7 +156,7 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* 🌞 Day theme */
+/* Day theme */
 .day-theme {
   --bg-color: radial-gradient(circle at top, #b3e5fc, #0277bd);
   --text-color: #001f3f;
@@ -168,7 +166,7 @@ footer a:hover {
 .day-theme .clouds { opacity: 0.4; }
 .day-theme .stars { opacity: 0; }
 
-/* 🌙 Night theme */
+/* Night theme */
 .night-theme {
   --bg-color: radial-gradient(circle at top, #00141a, #000);
   --text-color: #00f0ff;
