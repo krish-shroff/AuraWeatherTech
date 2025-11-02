@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://krish-shroff.github.io/AuraWeatherTech/sitemap.xml
